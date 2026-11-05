@@ -9,5 +9,6 @@
   "scenes": [
     { "archive": "archives/ap_loading.pak", "names": [ "textures@!ui_tfb!menucomponents!backgrounds_water`tga" ] } ],
   "portraits": { "materials": [
-    { "archive": "archives/toycollectionmaterials.pak", "folder": "temporary/buildserver/xenon/output/materialinstances/toycollection/" } ] }
+    { "archive": "archives/toycollectionmaterials.pak", "folder": "temporary/buildserver/xenon/output/materialinstances/toycollection/" } ] },
+  "parts": { "archive": "archives/permanent.pak", "trackers": "LooseData/CollectibleTrackers.igz", "texts": "LooseData/CollectibleTrackers_" }
 }

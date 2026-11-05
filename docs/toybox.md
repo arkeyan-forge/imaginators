@@ -1,6 +1,6 @@
 # Imaginators' Toy Box: crystals, Senseis, badges
 
-> **Purpose:** what the in-game Toy Box and the collection show for Imaginators (its creation crystals, Senseis and pictures), how it is proved in the game, what is still open · **Status:** current (2026-11-04) · **Tags:** [Alchemy] [Imaginators] [V] [?]
+> **Purpose:** what the in-game Toy Box and the collection show for Imaginators (its creation crystals, Senseis and pictures), how it is proved in the game, what is still open · **Status:** current (2026-11-05) · **Tags:** [Alchemy] [Imaginators] [V] [?]
 
 The same screens and code as the other games (`runtime/host/toybox/`); `runtime/` has no Imaginators case. The tag formats:
 [figures.md](https://github.com/arkeyan-forge/forge/blob/main/docs/runtime/host/figures.md#imaginators-creation-crystals-alchemy-imaginators).
@@ -8,12 +8,12 @@ The same screens and code as the other games (`runtime/host/toybox/`); `runtime/
 | Part | What [V] |
 |---|---|
 | Seats | Player 1, Player 2 (a Sensei, a creation crystal or any older figure), Magic item, Adventure (the catalogue's) |
-| Creation crystals | 10 types (680-689, one per element), 31 shapes and 3 Legendary shapes as versions; a card shows the class and level ("Ninja · Level 14", French names too), a blank one "Ready to create"; the sheet the name, experience bar on the game's 80 levels, gold, play time, and in Details the parts (body, weapons, hat, powers as the game's ids) |
+| Creation crystals | 10 types (680-689, one per element), 31 shapes and 3 Legendary shapes as versions; a card shows the class and level ("Ninja · Level 14", French names too), a blank one "Ready to create"; the sheet the name, experience bar on the game's 80 levels, gold, play time, and in Details the parts (body, weapons, hat, powers by the game's names) |
 | Senseis | 31 (601-631), 18 decos (Dark, Legendary, holiday, chase) from the owner's dumps; characters with the older games' progress |
 | Other toys | the Mystery Chest (235: Bronze, Silver, Gold, two Blue chests), two adventure packs (310, 311) |
 | Pictures | the disc's 565 badges (172 px): 422 toys and variants mapped (every Sensei and its decos, each element's crystal and the three Legendary ones, the packs, every older toy); drawn icons left: Smash Hit, the UFO Hat, the Mystery Chest. `IMAGINATORS_ISO=<disc> SSAArtTest` checks them |
 | Signature | a crystal made here has none; the port takes it as signed (the hook `GAME_HOOK_Portal_TagCheck`, `tag_signature.cpp`), the card says "Virtual · ..." and the sheet "Virtual: a real game would refuse this crystal" ([figures.md](https://github.com/arkeyan-forge/forge/blob/main/docs/runtime/host/figures.md#imaginators-creation-crystals-alchemy-imaginators), "Signature") |
-| Creation editor | Figure → Edit on a crystal: name (the keyboard; capitals as the game writes them), class (its primary and tertiary powers follow), element (a virtual crystal only: the same file, a new tag of the other type and its first shape), level (1-80 on the game's table), then the 74 parameters as the game stores them (parts and gear by the game's id, "none", sliders 0-8, palette colours 0-127); Left / Right, LB / RB or Shift by 10, the mouse wheel and arrows; Save writes it (`collection::WriteCrystal`; a blank crystal gets its first creation), lifting and placing it again when it is on the portal |
+| Creation editor | Figure → Edit on a crystal: name (the keyboard; capitals as the game writes them), class (its primary and tertiary powers follow), element (a virtual crystal only: the same file, a new tag of the other type and its first shape), level (1-80 on the game's table), then the 74 parameters as the game stores them (parts, gear, powers, voices and phrases **by the game's own names**, in the game's text language or the disc's first: [figures.md](https://github.com/arkeyan-forge/forge/blob/main/docs/runtime/host/figures.md#the-parts-names-alchemy-imaginators-v); "none", sliders 0-8, palette colours 0-127); Left / Right, LB / RB or Shift by 10, the mouse wheel and arrows; Save writes it (`collection::WriteCrystal`; a blank crystal gets its first creation), lifting and placing it again when it is on the portal |
 
 **Internal names** (the badges' `collection_<name>_<deco>`): King Pen `bladepenguin`, Tri-Tip `macetriceratops`, Chopscotch
 `axegirl`, Boom Bloom `whipgirl`, Pit Boss `staffserpent`, Barbella `doublerearthgirl`, Air Strike `petfalconguy`, Ember
@@ -57,9 +57,4 @@ SuperChargers'), classified by Swap Force's `ClassifySwapForce` (the same state 
 
 ## Open [?]
 - Player 2's prompts, the Dead state (13) and the error screens (16) were not run.
-- The parts' display names: the disc has them, in French and Dutch only (`archives/permanent.pak`,
-  `LooseData/CollectibleTrackers.igz`: 1472 `CCYOSLootCollectibleTracker`, each with its part id (word 36), part type (word 39) and
-  model; `CollectibleTrackers_fr.lng`: 3828 texts keyed by object and field). The first four trackers match their texts by order
-  ("Tête d'oiseau" for the bird head, id 6), but no rule tried (object order over trackers or over every localized type, the
-  trackers' handle words, the EXNM table) holds for the rest, so the editor shows the game's ids [?].
 - The crystal's 0x60-0x6F, Sensei training, the secondary power's numbering.
