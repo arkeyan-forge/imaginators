@@ -1,0 +1,13 @@
+{
+  "format": 1,
+  "game": "imaginators",
+  "engine": "alchemy",
+  "about": "Where Imaginators keeps its pictures and menu theme on the disc (docs/runtime/host/game_art.md, games/imaginators/docs/art.md). Names only: they are read from the player's own disc.",
+  "logo": { "archive": "archives/legal.pak", "entry": "textures@!ui_tfb!titlelogo!titlelogo_2016_001`tga" },
+  "music": { "archive": "archives/inter_streamed_bank.pak", "entry": "mu_main_menu_2016_apm_heroes_all.wav,0,48000,kDefaultFormat,40,1,0,1" },
+  "background": { "archive": "archives/ap_loading.pak", "entry": "textures@!ui_tfb!menucomponents!backgrounds_water`tga" },
+  "scenes": [
+    { "archive": "archives/ap_loading.pak", "names": [ "textures@!ui_tfb!menucomponents!backgrounds_water`tga" ] } ],
+  "portraits": { "materials": [
+    { "archive": "archives/toycollectionmaterials.pak", "folder": "temporary/buildserver/xenon/output/materialinstances/toycollection/" } ] }
+}

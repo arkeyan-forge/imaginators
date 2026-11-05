@@ -1,0 +1,10 @@
+# What the player kit's Arkeyan-Builder knows about this game. No game data: the hash identifies the player's own default.xex and
+# must be the one games/imaginators/info.cpp accepts. Not in the kit yet (day 1).
+id=imaginators
+name=Skylanders Imaginators
+runtime=Skylanders Imaginators
+version=0.0.1
+toml=Imaginators.toml
+# Disc shaders: one archive, IGA v11 big-endian like SuperChargers' (games/imaginators/docs/research.md).
+shaders=igz:/archives/shaders_xenon.pak
+xex_sha256=1c6d7e05ef6d30ba0b86ff3a810ba115bef3050998254471230cd8c07641d0ac
