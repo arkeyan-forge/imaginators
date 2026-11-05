@@ -41,3 +41,26 @@ keyboard, xbox360; the pause menu's hints in the shots: cross and circle; B and 
 360's A and B. The movie's skip prompt shows the Y as the keyboard's V (run `imgD1`). The Back pills were not met in a run [?].
 How (30 min): the two archives extracted from the disc (`tools/shaders/xdvdfs.py`) into `private/imaginators/disc/`, SuperChargers'
 scratch tools (picture list and hash, untile and boxes) run on them, the body picture looked at; the records read in the entry.
+
+## World prompts (2026-11-05) [Alchemy] [Imaginators] [V]
+`permanent_xenon.pak` holds SuperChargers' 3D button prompts (`models/UI/ButtonPrompt/XENON`: A, B, X, Y, LT, **RT**, Mash_*, RS_*; RT
+instead of its RB) and the meshes are the same: a face and the letters of the button on it ([SuperChargers' page](https://github.com/arkeyan-forge/superchargers/blob/main/docs/art.md#world-prompts-2026-11-05)
+has the format and the method; the signature of Imaginators' B, X, Mash and RS meshes differs a little, A, Y, LT and RB are byte for byte
+SuperChargers'). **RB is replaced** like SuperChargers' (adapter `GlyphPrompts`): the same face (816 indices, `21E1098D0C5EEC4F`) and letters
+(2706, `7F26CABF048F8787`), the same orientation and the same stretch of u (2.55) [V]. The draw order differs from SuperChargers': the colour pass draws the
+letters before the face (the depth pass, the face first), so both orders are paired.
+
+**Where one shows.** The hub (`SKY_LEVEL=hub_2016` on a continue; the plaza's fountain): the RB pill under the hologram bust of Flynn, the interaction
+prompt, once Eruptor has walked to the fountain (`lup:5`, the bust's lines skipped with A, `lup:6`). The first level (`level_508`) showed none in a short walk.
+
+| Style (`--glyphs`) | The RB prompt in the hub (`private/prompts3d/proof/`) |
+|---|---|
+| `playstation` | a dark pill, "R1" |
+| `keyboard` | a white keycap pill (the RB key) |
+| `xbox360` | the game's white pill with "RB", unchanged |
+
+Run: `private/runs/p3d-imgF-{playstation,keyboard,xbox360}`, a continue on the lobby test's save of `tools/regress/imaginators_hub.sh` (Start to the licence, Y, A).
+**Left:** RT (333 and 1362
+indices; B's meshes differ from SuperChargers': 441 and 1059), A, B, X, Y, LT, the Mash and B_Hold prompts were not seen in a run (the hub's plaza as far as the
+fountain's stairs and the first level's first path), so no row is listed ([SuperChargers' page](https://github.com/arkeyan-forge/superchargers/blob/main/docs/art.md#world-prompts-2026-11-05)
+says how a row is made; A and Y, B and the Mash prompts share a face and are told by their letters).

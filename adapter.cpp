@@ -1,7 +1,7 @@
 // Imaginators' adapter (runtime/game.h), SuperChargers' line. Its portal prompt is read from the CMagicMoment object
 // (imaginators_portal_prompt.h); its text and voices follow the settings' language among the disc's two (language.cpp);
 // its button glyphs are pictures its CPU text renderer copies into strings, redrawn in guest memory (glyphs::MemoryImage),
-// as SuperChargers'. The game asks for present interval 2 and paces itself on it, as SuperChargers and Swap Force:
+// as SuperChargers'; its 3D button prompts follow the device too (glyphs::Prompt). The game asks for present interval 2 and paces itself on it, as SuperChargers and Swap Force:
 // presentIntervalPacesGame (at fps_limit 60 it held 33.3 ms a frame without it) [V].
 #include "game.h"
 #include "host/portal.h"
@@ -98,10 +98,20 @@ namespace
     // SuperChargers' bound on the scene's width (a 2560x720 scene stopped that game in its hub) [?].
     constexpr uint32_t MaxSceneWidth = 2048;
 
+    // The 3D prompts of models/UI/ButtonPrompt/XENON (permanent_xenon.pak), the same meshes as SuperChargers' (the RB bumper's are
+    // byte for byte): a face and the letters on it (games/imaginators/docs/art.md, "World prompts"). Indices as stored.
+    constexpr uint64_t RbPicture = 0xB0770000000000A1ull; // the key of its picture's row, no guest texture has it
+    constexpr glyphs::Texture GlyphTextures[] = {
+        { RbPicture, "world prompt RB", Glyph::RightBumper, {}, false, false, nullptr, true },
+    };
+    constexpr glyphs::Prompt GlyphPrompts[] = {
+        { 816, 0x21E1098D0C5EEC4Full, 2706, 0x7F26CABF048F8787ull, RbPicture, 320, 128, 0, 1, false, true, 2.55f },
+    };
+
     // SKY_LEVEL is zone.cpp's (the zone's name, not a file redirect: firstLevel stays empty).
-    const game::Adapter g_adapter = { g_gameInfo, ReadPortalPrompt, true, imaginators::SetVoiceLanguage, {},
+    const game::Adapter g_adapter = { g_gameInfo, ReadPortalPrompt, true, imaginators::SetVoiceLanguage, GlyphTextures,
         IntroMovies, false, imaginators::SetTextLanguage, {}, GlyphImages, true, { 1280, 720 }, nullptr, nullptr, 0, {},
-        {}, {}, MenuLevels, MaxSceneWidth };
+        {}, {}, MenuLevels, MaxSceneWidth, GlyphPrompts };
 }
 
 const game::Adapter& game::Current() { return g_adapter; }
