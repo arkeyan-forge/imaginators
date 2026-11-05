@@ -7,8 +7,8 @@ The manifest is `games/imaginators/art.json` (names only; the reader is SuperCha
 ## Where they are [V]
 | What | Archive | Entry | Result |
 |---|---|---|---|
-| Logo | `archives/legal.pak` | `textures@!UI_TFB!TitleLogo!TitleLogo_2016_001` | 1024x724, opaque: the logo in its burst of light on black (the title screen's picture) |
-| Background | `archives/ap_loading.pak` | `textures@!UI_TFB!MenuComponents!Backgrounds_Water` | 344x344, the menus' blue gradient |
+| Logo | `nxeart` (the dashboard's STFS package) | `nxeslot.jpg`, `compose: feather` | the logo on its night sky, faded at its edges; the launcher shows a downloaded clean logo instead (`logo_download`, Wikimedia Commons, CC BY-SA 4.0) |
+| Background | `nxeart` | `nxebg.jpg` | 1920x1080, the dashboard's night sky with light streaks; also the only scene |
 | Portraits | `archives/toycollectionmaterials.pak` | `materialInstances/ToyCollection/Collection_<Toy>_<Variant>.igz` | **565** |
 | Menu theme | `archives/inter_streamed_bank.pak` | `mu_main_menu_2016_apm_heroes_all.wav,0,48000,kDefaultFormat,40,1,0,1` | 43.9 s, 48 kHz stereo, mean -15 dB, peak -0.2 dB |
 
@@ -17,9 +17,12 @@ portraits, 2.0 s); `Arkeyan-Builder --iso <disc> --menu-music <file.wav> --kit <
 permanent: `TestDisc`'s later checks (upgrades, drawn icons) are the older games'.
 
 ## Open
-- The logo has no transparency. The disc's other logos: `prototitle.pak`'s `TitleLogo_2016` is the prototype "Skylanders 2016" one;
-  the start screen's `MainMenuBackground.pak` `imaginators_TM` (a `,111.igz` entry) is not found by the reader [?].
-- The background is a plain gradient; the menus are 3D scenes, as SuperChargers'.
+- No clean transparent 2D logo on the disc (scan of 4995 archives, 2026-11-05): the title screen's logo is a 3D model
+  (`actors/UI_3D/imaginatorslogo.igz`), `legal.pak`'s `TitleLogo_2016_001` is the logo in a burst of light on black
+  (`compose: light_on_black` reads it), `prototitle.pak`'s `TitleLogo_2016` is the prototype "Skylanders 2016" one.
+- `imaginators_TM` and about 13,600 other `,111.igz` entries store their chunks as raw deflate (mode word top nibble 1:
+  `[u16 n][n bytes]`, 0x8000 bytes out each); `IgaArchive::Read` decodes LZMA only and reads them as stored [V: the scan's
+  patched reader]. A deflate branch would open them (none is needed for the launcher today).
 
 ## Button pictures (glyphs, 2026-11-05) [Alchemy] [Imaginators] [V]
 SuperChargers' way ([its art.md](https://github.com/arkeyan-forge/superchargers/blob/main/docs/art.md), "Button pictures"): the game composes its strings on the CPU, so

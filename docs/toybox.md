@@ -35,6 +35,13 @@ Matched by looking at each badge and by the decos the dumps hold.
   Ninja plays as before and the hook is never asked (`imgh10`).
 - The creation editor (`imge3`): a virtual blank Air crystal edited in the Toy Box (F6, its card, F2, Edit: Knight -> Ninja, level
   1 -> 14, Save), then "Put on Player 1": the game takes it and plays the creation, HUD "NINJA DE L'AIR", level 14.
+- The plain crystal (variant 0: the catalogue has no plain one, every row but the first is a shape), 2026-11-05, run `crys*`, a
+  blank Undead crystal on the portal, `SKY_LEVEL=hub_2016`: the one the 0.9.0 launcher's Collection made (no 2016 sector-0 trailer)
+  was refused ("Ton Skylander est peut-être corrompu", `cyos_vessel_undead.pak` reopened every 4 s, the hook never asked); the same
+  tag with only that trailer, a new one from the fixed library, and the old one as it is (mended at placement, `[portal] ...: the 2016
+  sector keys of a virtual toy set`, the game's write kept it) open the creator ("CRÉER : MARTELEUR DES MORTS-VIVANTS"); one made
+  in the in-game Toy Box (Add a figure, Creation Crystals, Undead Creation Crystal, Create, "Put it on Player 1 now") opens the
+  class choice too ([figures.md](https://github.com/arkeyan-forge/forge/blob/main/docs/runtime/host/figures.md#imaginators-creation-crystals-alchemy-imaginators), "Signature").
 - The owner's blank signed crystal (Air Angel 1): the game's creator opens ("CRÉER : MARTELEUR DE L'AIR ... Es-tu prêt à créer :
   Marteleur ? C'est une décision définitive."), the class previews (`cyos_class_preview_*.bk2`) and `cyos_vessel_air.pak` open.
 
