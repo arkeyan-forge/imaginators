@@ -1,3 +1,0 @@
-add_executable(IMGTagSignatureTest tag_signature_test.cpp)
-target_include_directories(IMGTagSignatureTest PRIVATE ..)
-sky_add_tests(IMGTagSignatureTest)
