@@ -34,3 +34,35 @@ the first level, on foot with Eruptor [V]. 30 fps (the default limit), 1180 draw
 `engines/alchemy/zone_request.cpp`, SuperChargers' zone request redirect, now shared: Imaginators' zone lookup is `sub_82D7B450`
 (a strict shape match of SuperChargers' `sub_82DF1C58`), its zone enter `sub_82D82B50` (0.66; it reads the request global
 `0x837E7A64` +44 and calls the lookup at `0x82D82C1C`, as SuperChargers' does), read in the generated code [V].
+
+## 5. Text and voice language (2026-11-05) [Alchemy] [Imaginators] [V]
+The disc has French and Dutch (text and voices: `*_fr.pak` / `*_nl.pak` sound packages, no English). With the settings' language
+left to the game, it plays in French (our console answers English; the game falls back to the disc's first language) [V].
+`[imaginators] language` (`--language`, `SKY_LANGUAGE`) and `[audio] voice_language` (`SKY_VOICE_LANGUAGE`) now choose either,
+SuperChargers' scheme (`games/superchargers/language.cpp`) in `games/imaginators/language.cpp`:
+- `Language_Get` `sub_8250C898`: `XGetLanguage` (`sub_8363D968`, `ExGetXConfigSetting(3, 9)`) through SuperChargers' jump table
+  (read from the image: console 1 -> 6, 3 -> 9, **4 -> 8 French**, 13 -> 23, 15 -> 17, **16 -> 5 Dutch**). Our console has no
+  language 16 (`runtime/kernel/xconfig.cpp` gives "nl" as English with the Netherlands for the older games), so for Dutch the hook
+  answers 5 itself; for French the console's 4 is enough.
+- `Language_SoundPak` `sub_8277EB80` and `Language_SoundPak2` `sub_8277F000`: the two users of `"%s/%s_%s.pak"` (`0x823CA3C0`); while
+  one runs, `Language_Get` answers the voice language. Without a voice language the voices follow the text.
+- `Movie_Open` `sub_8270DAE0`: BinkOpen's only caller; the language's Bink track id at description `+56`: **5 French, 6 Dutch**
+  (runs `imgA1`, `imgB1`); a voice language puts its own there.
+
+| Run | Settings | Result |
+|---|---|---|
+| `imgA1` | the game's | 7 sound packages `_fr`, movie track 5 |
+| `imgB1` | text `nl`, voices `fr` | `[language] text: nl (5), the console's 6`; the pause menu "SPELVOORTGANG", "Selecteren", "Terug"; 8 packages `_fr`, none `_nl`; movie track 6 |
+| `imgC1` | text `fr`, voices `nl` | `[language] sound packages: nl (5), the console's 8`; 8 packages `_nl`, none `_fr`; `movie voice track 6 (nl), the text's was 5` |
+
+## 6. Save tasks (2026-11-05) [V]
+Swap Force's stop at the save slots (its task start cleared the done flag after starting the worker thread) **is not in this game**:
+SuperChargers' start `sub_829AAB90` is `sub_829CE070` here (shape 1.00), which sets the worker, clears the done flag (`0x837E50D5`),
+then starts the thread (`sub_824A80B8`); the poll `sub_829CE020` is SuperChargers' `sub_829AAB40` (1.00). No hook.
+
+## 7. Movies: the skip (2026-11-05) [V]
+The two start-up logos (`bumper_atvi`, `bumper_tfb`) are the adapter's `IntroMovies` (`skip_intro_movies`). The opening `fmv01_cinematic`
+(5308 frames, 177 s) is skipped the game's way, unlike SuperChargers': a first press shows "OVERSLAAN: (Y)" ("PASSER" in French),
+then **Y** skips. Run `imgD1` (a new game, `SKY_LANGUAGE=nl`, one button every 10 s from 11 s into the movie): X at 65.4 s brought the
+prompt (shot at 75 s, its Y drawn as the keyboard's V), Y at 87.0 s, and `c508_intro.bk2` opened at 87.3 s, 33 s after `fmv01` (day 1's
+runs, A only, played it to its end).

@@ -47,6 +47,26 @@
 #define GAME_HOOK_Zone_Find sub_82D7B450
 #define GAME_HOOK_Zone_Enter sub_82D82B50
 
+// Languages (games/imaginators/language.cpp, games/imaginators/docs/boot.md "Text and voice language"): Language_Get, XGetLanguage
+// (sub_8363D968, ExGetXConfigSetting 3, 9) to an IG_CORE_LANGUAGE value by a jump table, SuperChargers' sub_824D7E10 case for
+// case (French 4 -> 8, Dutch 16 -> 5), the same byte global after it. The two users of "%s/%s_%s.pak" (0x823CA3C0) open a
+// sound set's localized package, each asking Language_Get. Movie_Open is BinkOpen's only caller (the description at +32,
+// the language's Bink track id at +56, passed to BinkSetSoundTrack), SuperChargers' shape.
+#define GAME_HOOK_Language_Get sub_8250C898
+#define GAME_HOOK_Language_SoundPak sub_8277EB80
+#define GAME_HOOK_Language_SoundPak2 sub_8277F000
+#define GAME_HOOK_Movie_Open sub_8270DAE0
+
+// Ultrawide (games/imaginators/ultrawide.cpp, SuperChargers'; docs/runtime/gpu/ultrawide.md): SuperChargers' sub_826E8718
+// is sub_826F96D0 (shape 0.87; tools/xmatch.py offsets: no structure displacement differs, +32/+36, +40/+44, +92/+96
+// kept), sub_82600C10 (the scene's tiles) is sub_82614310 (1.00), the world camera sub_82B0BC00 is sub_82BA8430 (1.00),
+// whose call at the same place (0x82BA84D0) goes to the projection builder sub_82547C30 (its frustum code inlined, hence
+// shape 0.30; the same arguments).
+#define GAME_HOOK_Ultrawide_ScenePass sub_826F96D0
+#define GAME_HOOK_Ultrawide_Projection sub_82547C30
+#define GAME_HOOK_Scene_Tiles sub_82614310
+#define GAME_ULTRAWIDE_COMPOSITE_INDEXED
+
 #include <cstdint>
 #include <string_view>
 
@@ -65,11 +85,13 @@ namespace game
         0x837AA970; // sigmatch 1.0 (Trap Team's and Swap Force's), via Xma1_LockAll
     constexpr uint32_t DeviceGlobal = 0;
     constexpr uint32_t UltrawideDisplayAspect = 0;
-    constexpr uint32_t UltrawideSceneWidth = 0, UltrawideSceneHeight = 0;
-    constexpr bool UltrawideSceneKeepsArea = false;
-    constexpr uint32_t UltrawideCompositeVertices = 0;
+    // The scene's 1040x620, SuperChargers' (its root pass's explicit size) [?].
+    constexpr uint32_t UltrawideSceneWidth = 1040, UltrawideSceneHeight = 620;
+    constexpr bool UltrawideSceneKeepsArea = true;
+    constexpr uint32_t UltrawideCompositeVertices = 6;
     constexpr int UltrawideCompositeSlot = 0;
     constexpr bool UltrawideCompositeVpos = false;
+    constexpr uint32_t UltrawideWorldCameraCall = 0x82BA84D4; // the return of sub_82BA8430's projection call
     constexpr uint64_t HostKernelPixelShader = 0;
     constexpr uint32_t HostKernelThreshold = 0;
     // SKY_LEVEL: the return address of the zone lookup that enters a zone; the request global (its object holds the next

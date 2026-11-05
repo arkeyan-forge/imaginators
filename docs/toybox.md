@@ -38,10 +38,25 @@ Matched by looking at each badge and by the decos the dumps hold.
 - The owner's blank signed crystal (Air Angel 1): the game's creator opens ("CRÉER : MARTELEUR DE L'AIR ... Es-tu prêt à créer :
   Marteleur ? C'est une décision définitive."), the class previews (`cyos_class_preview_*.bk2`) and `cyos_vessel_air.pak` open.
 
+## The portal prompt (2026-11-05) [V]
+The Toy Box opens by itself on the seat the game asks for, and closes when the prompt is gone: `games/imaginators/
+imaginators_portal_prompt.h` and the adapter's `ReadPortalPrompt` (three guest reads a frame, a prompt counts after 2.5 s as
+SuperChargers'), classified by Swap Force's `ClassifySwapForce` (the same state numbers).
+- **The object** is SuperChargers' `CMagicMoment` singleton, found by its class as there: the string `CMagicMoment` (`0x820624D4`)
+  is registered by `sub_82CF0AC0` with its descriptor `0x837F7410`; the 3-instruction getter of that descriptor, `sub_82CB4538`, is
+  slot 1 of the vtable `0x8216099C` (its address found in the image); slots **7 and 8** (SuperChargers': 6 and 7), `sub_82CC2118`
+  and `sub_82CC2128`, store and clear the instance at **`0x837F649C`**. (Day 1 looked for slot 6's setter, hence "not found".)
+- **The states**: the enum's names (`0x82157FA0`, in value order) are Swap Force's list (Idle 5, IdleOutro 7, Dead 13, Error 16,
+  then the online ones); SuperChargers' `FirstVehicleSequence` is gone. **The fields**, from the readers of the instance (`+0x40`
+  compared with 0 in most) and run `imgA1` (a dump of the object's changed words each frame, `SKY_LEVEL=hub_2016`, empty portal):
+  the state at **`+0x40`** went 0, 1, 2, 3, 17, 5 (SuperChargers': 1, 2, 3, 18, 5, at `+0x2C`); the player at **`+0x210`**
+  (SuperChargers' `+0x1FC` moved by the same 0x14) read 0 at the prompt. Player 2 and the -1 "nobody" value are not seen [?].
+- **Runs**: `imgA1` (empty portal, empty collection): `[toybox] prompt for player 1`, the Toy Box open on Player 1.
+  `imgC1` (empty portal, a scratch collection with a generated Eruptor, Return every 5 s from 95 s): `prompt for player 1`, `open (1
+  figures)`, `the game took Eruptor (slot 0, 0.1 s after the change)`, `the prompt is gone`, `closed`, then Eruptor plays in the hub.
+
 ## Open [?]
-- The portal prompt does not open the Toy Box: Imaginators' `CMagicMoment` instance is not found. SuperChargers' (in `../scday1`) is
-  vtable slot 6's setter of a singleton; Imaginators has 110 such setters (all tail-calling `sub_828DEDF0`) and none whose vtable
-  matches SuperChargers' CMagicMoment by method sizes. The classifier can be SuperChargers' once found; F6 and the mouse open it.
+- Player 2's prompts, the Dead state (13) and the error screens (16) were not run.
 - The parts' display names: the disc has them, in French and Dutch only (`archives/permanent.pak`,
   `LooseData/CollectibleTrackers.igz`: 1472 `CCYOSLootCollectibleTracker`, each with its part id (word 36), part type (word 39) and
   model; `CollectibleTrackers_fr.lng`: 3828 texts keyed by object and field). The first four trackers match their texts by order
