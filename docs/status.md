@@ -36,7 +36,7 @@ Each checked in a run (`private/runs/`); [V] seen, [?] not checked.
 | Ultrawide | 21:9 (scene 1696x720, Hor+ 96.4 degrees) and 32:9 (scene 2048x576, 118.4 degrees) in the hub [V] ([ultrawide.md](https://github.com/arkeyan-forge/forge/blob/main/docs/runtime/gpu/ultrawide.md#imaginators-alchemy-imaginators-v-2026-11-05)) |
 | Movies | the logos in `skip_intro_movies`; `fmv01` skipped with Y after a first press shows the game's prompt [V] ([boot.md](boot.md) 7) |
 | Save task | Swap Force's race is not in this game's code: no hook [V] ([boot.md](boot.md) 6) |
-| 60 FPS, scale 2 | the first level 59.6, the hub 58.4 (GPU-bound with the full-resolution scene; 60.0 with `original_resolution=1`), no drop to 30 [V] ([renderer_threads.md](https://github.com/arkeyan-forge/forge/blob/main/docs/runtime/gpu/renderer_threads.md)) |
+| 60 FPS, scale 2 | the first level 59.6, the hub 58.4 before the Metal lossless compression (GPU-bound with the full-resolution scene; 60.0 with `original_resolution=1`); **now the hub and all 12 levels (`level_500`-`510`, `512`) hold 59.8-60.0, no drop to 30** (2026-11-05) [V] ([renderer_threads.md](https://github.com/arkeyan-forge/forge/blob/main/docs/runtime/gpu/renderer_threads.md)) |
 
 ## Next
 1. The hub test in `tools/test_all.sh`.
