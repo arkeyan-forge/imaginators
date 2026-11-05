@@ -110,8 +110,8 @@ namespace
 
     // SKY_LEVEL is zone.cpp's (the zone's name, not a file redirect: firstLevel stays empty).
     const game::Adapter g_adapter = { g_gameInfo, ReadPortalPrompt, true, imaginators::SetVoiceLanguage, GlyphTextures,
-        IntroMovies, false, imaginators::SetTextLanguage, {}, GlyphImages, true, { 1280, 720 }, nullptr, nullptr, 0, {},
-        {}, {}, MenuLevels, MaxSceneWidth, GlyphPrompts };
+        IntroMovies, false, imaginators::SetTextLanguage, {}, GlyphImages, true, { 1280, 720 },
+        AlchemySetNightmareFromStart, nullptr, 0, {}, {}, {}, MenuLevels, MaxSceneWidth, GlyphPrompts };
 }
 
 const game::Adapter& game::Current() { return g_adapter; }

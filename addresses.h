@@ -67,6 +67,12 @@
 #define GAME_HOOK_Scene_Tiles sub_82614310
 #define GAME_ULTRAWIDE_COMPOSITE_INDEXED
 
+// Nightmare difficulty (engines/alchemy/nightmare.cpp): (storage) -> whether the save's "nightmare_difficulty_unlocked"
+// property is 1. Swap Force's sub_829CC788 instruction for instruction (the slot's data at +44, not +40); the one reader of
+// the property (its writer, sub_829C4350, is the script's unlockNightmareDifficultyLevel). Its two callers are the
+// difficulty menu's (sub_8317D680, sub_8317D888): the fourth portrait is locked while it answers 0.
+#define GAME_HOOK_NightmareUnlocked sub_829BE430
+
 #include <cstdint>
 #include <string_view>
 

@@ -9,3 +9,7 @@ namespace imaginators
     bool SetTextLanguage(std::string_view code);
     bool SetVoiceLanguage(std::string_view code);
 }
+
+// [imaginators] nightmare_from_start (engines/alchemy/nightmare.cpp): the difficulty menu offers Nightmare before the
+// story is beaten.
+void AlchemySetNightmareFromStart(bool on);

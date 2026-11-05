@@ -38,6 +38,19 @@ Each checked in a run (`private/runs/`); [V] seen, [?] not checked.
 | Save task | Swap Force's race is not in this game's code: no hook [V] ([boot.md](boot.md) 6) |
 | 60 FPS, scale 2 | the first level 59.6, the hub 58.4 before the Metal lossless compression (GPU-bound with the full-resolution scene; 60.0 with `original_resolution=1`); **now the hub and all 12 levels (`level_500`-`510`, `512`) hold 59.8-60.0, no drop to 30** (2026-11-05) [V] ([renderer_threads.md](https://github.com/arkeyan-forge/forge/blob/main/docs/runtime/gpu/renderer_threads.md)) |
 
+## Nightmare (2026-11-05) [Imaginators] [V]
+The difficulty menu (a new game's first empty slot, after the licence) has four portraits, Medium highlighted; the fourth,
+**Cauchemar** (Nightmare), carries a padlock on a new save, its text saying to beat Kaos on another difficulty to unlock it.
+- **The lock**: `sub_829BE430` reads the slot's property `nightmare_difficulty_unlocked` and answers whether it is 1: Swap Force's
+  `sub_829CC788` instruction for instruction (the slot's data at +44, not +40); the only reader of the property (its writer,
+  `sub_829C4350`, is the script's `unlockNightmareDifficultyLevel`). Its two callers are the menu's (`sub_8317D680`,
+  `sub_8317D888`); it is asked when the menu opens.
+- **`[imaginators] nightmare_from_start=1`**: the shared hook `engines/alchemy/nightmare.cpp` (`GAME_HOOK_NightmareUnlocked`, Swap
+  Force's) answers 1 while the option is on; the save is not written.
+- **Proof** [V]: `IMAGINATORS_ISO=<disc> tools/regress/nightmare_menu.sh imaginators` PASS (`private/regress/nightmare/imaginators/`):
+  option off, the padlock and `the save says locked, the option is off: locked`; option on, no padlock, the text "Tu ne peux pas
+  changer la difficulté dans ce mode. +50% de récompenses", A takes it and the first level opens (`level_508.pak`). In `test_all.sh`.
+
 ## Next
 1. The hub test in `tools/test_all.sh`.
 2. The hub at a locked 60 with the full-resolution scene (the GPU's cost, stream P); player 2's prompts; the parts' names in the
